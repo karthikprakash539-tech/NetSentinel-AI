@@ -51,10 +51,12 @@ export default function App() {
   const handleFilterThreats = () => {
     setActiveTab('events');
     setSelectedSeverity('critical');
+    setMobileMenuOpen(false);
   };
 
   const handleViewDevices = () => {
     setActiveTab('devices');
+    setMobileMenuOpen(false);
   };
 
   // Quick Action: Block Source IP
@@ -164,14 +166,21 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Simulation Disclaimer Banner */}
-      <DemoBanner />
+      {/* Mobile Drawer Overlay Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+      )}
 
       {/* Collapsible Left Sidebar */}
       <Sidebar
         activeTab={activeTab}
         onTabChange={(tab) => {
           setActiveTab(tab);
+          setMobileMenuOpen(false);
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         collapsed={sidebarCollapsed}
@@ -181,8 +190,11 @@ export default function App() {
         activeThreatCount={stats.activeThreats}
       />
 
-      {/* Main Workspace Area */}
+      {/* Main Workspace Area (starts at sidebar edge) */}
       <div className={`main-wrapper ${sidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+        {/* Simulation Disclaimer Banner */}
+        <DemoBanner />
+
         {/* Top Header */}
         <Header
           activeTab={activeTab}
@@ -192,6 +204,7 @@ export default function App() {
           notifications={notifications}
           onSelectTab={(tab) => {
             setActiveTab(tab);
+            setMobileMenuOpen(false);
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
           onMarkAllRead={handleMarkAllNotificationsRead}
@@ -235,6 +248,7 @@ export default function App() {
               onInspectActor={(actor) => {
                 setSearchQuery(actor);
                 setActiveTab('events');
+                setMobileMenuOpen(false);
               }}
             />
           )}

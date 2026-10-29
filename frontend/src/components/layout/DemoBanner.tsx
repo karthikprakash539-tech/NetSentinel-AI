@@ -23,10 +23,12 @@ export function DemoBanner({ onDismiss }: DemoBannerProps) {
     >
       <div className="demo-banner-left">
         <span className="demo-banner-badge">DEMO DATA — NOT LIVE MONITORING</span>
-        <AlertTriangle size={14} aria-hidden="true" />
-        <span>
-          NetSentinel AI is running in offline demonstration mode with simulated intrusion telemetry. It does not monitor live production traffic or detect real-world attacks.
-        </span>
+        <div className="demo-banner-text-group">
+          <AlertTriangle size={15} className="demo-banner-icon" aria-hidden="true" />
+          <span className="demo-banner-text">
+            NetSentinel AI is running in offline demonstration mode with simulated intrusion telemetry. It does not monitor live production traffic or detect real-world attacks.
+          </span>
+        </div>
       </div>
       <button 
         type="button" 
@@ -35,11 +37,9 @@ export function DemoBanner({ onDismiss }: DemoBannerProps) {
         aria-label="Dismiss demo simulation banner"
         title="Dismiss notice"
       >
-        <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
-          <ShieldAlert size={12} aria-hidden="true" />
-          Acknowledge
-          <X size={12} aria-hidden="true" />
-        </span>
+        <ShieldAlert size={13} aria-hidden="true" />
+        <span>Acknowledge</span>
+        <X size={13} aria-hidden="true" />
       </button>
     </aside>
   );
